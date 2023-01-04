@@ -118,10 +118,11 @@ def plot_verification_image(movie_frame, output_directory):
     mvname = os.path.basename(movie_frame.filename.unique()[0])
     mvname, _ = mvname.split(".")
     mvname += ".pdf"
-    directory = os.path.join(output_directory, "verification")
+    #directory = os.path.join(output_directory, "verification")
+    directory = output_directory
 
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    #if not os.path.exists(directory):
+    #    os.makedirs(directory)
 
     image = tifffile.imread(movie_frame.filename.unique()[0])[0]
 
