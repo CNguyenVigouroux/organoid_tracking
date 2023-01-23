@@ -93,6 +93,8 @@ def movie_analysis(filename, output_directory):
     movie_name, _ = filename.split(".")
     image_sequence = tifffile.imread(filename)
 
+    print(filename)
+
     # if spurious channels remove extra RGB one
     if image_sequence.ndim == 4:
         single_channel_image_sequence = image_sequence[..., 0]
@@ -101,6 +103,10 @@ def movie_analysis(filename, output_directory):
 
     # check that dimensions are OK
     assert image_sequence.ndim == 3
+
+    # if no organoid then return an empty array
+    if not 255 in np.unique(image_sequence):
+        return pd.DataFrame()
 
     movie_frame = single_movie_trajs(image_sequence, max_step=100)
     movie_frame = get_particle_props(movie_frame)
